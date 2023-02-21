@@ -1,0 +1,57 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Resource",
+"class": "GameDataContainer",
+"language": "GDScript",
+"path": "res://src/class/class_game_data_container.gd"
+}, {
+"base": "Node",
+"class": "GameGlobal",
+"language": "GDScript",
+"path": "res://src/class/class_global.gd"
+} ]
+_global_script_class_icons={
+"GameDataContainer": "",
+"GameGlobal": ""
+}
+
+[application]
+
+config/name="# [ddat-gpf.3] Runtime Scaffold"
+config/description="workspace to focus on developing a series of runtime scenes for quick prototyping"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="ddat_framework_input"
+config/icon="res://art/splash/ddat_icon.png"
+
+[autoload]
+
+GlobalData="*res://src/autoload/global_data.gd"
+GlobalDebug="*res://src/autoload/global_debug.gd"
+GlobalDevTools="*res://src/autoload/global_devtools.tscn"
+GlobalInput="*res://src/autoload/global_input.gd"
+
+[debug]
+
+settings/stdout/verbose_stdout=true
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+
+[editor]
+
+script_templates_search_path="res://_dev/default_scripts"
+
+[logging]
+
+file_logging/enable_file_logging=true

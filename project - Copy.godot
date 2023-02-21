@@ -1,0 +1,42 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Resource",
+"class": "GameDataContainer",
+"language": "GDScript",
+"path": "res://src/class/class_game_data_container.gd"
+}, {
+"base": "Node",
+"class": "GameGlobal",
+"language": "GDScript",
+"path": "res://src/class/class_global.gd"
+} ]
+_global_script_class_icons={
+"GameDataContainer": "",
+"GameGlobal": ""
+}
+
+[application]
+
+config/name="# [ddat-gpf.3] Runtime Scaffold"
+config/icon="res://icon.png"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
