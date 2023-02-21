@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/class/class_global.gd"
 }, {
+"base": "Control",
+"class": "GameMenuWindow",
+"language": "GDScript",
+"path": "res://src/class/class_game_menu.gd"
+}, {
 "base": "Resource",
 "class": "GameProgressFile",
 "language": "GDScript",
@@ -49,6 +54,7 @@ _global_script_class_icons={
 "Conditional": "",
 "GameDataContainer": "",
 "GameGlobal": "",
+"GameMenuWindow": "",
 "GameProgressFile": "",
 "GameStateHandler": "",
 "TitleMenuWindow": ""
@@ -70,6 +76,7 @@ GlobalDebug="*res://src/autoload/global_debug.gd"
 GlobalDevTools="*res://src/autoload/global_devtools.tscn"
 GlobalInput="*res://src/autoload/global_input.gd"
 GlobalConfig="*res://src/autoload/global_config.gd"
+GlobalProgression="*res://src/autoload/global_progression.gd"
 
 [debug]
 
