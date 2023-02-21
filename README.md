@@ -2,9 +2,9 @@
 The runtime scaffold; prebuilt scenes for (DDAT) Godot Prototyping Framework.
 
 includes:
- ddat-gpf.core v0.1.4
- ddat-gpf.input-0.0.1
- ddat-gpf.config-0.0.1
+ * ddat-gpf.core v0.1.4
+ * ddat-gpf.input-0.0.1
+ * ddat-gpf.config-0.0.1
  
 This is to be a collection of state scripts and scenes that cover the basic framework for any game; title menu, save/load, etc (in future this will be expanded to include input and configuration settings as well). It is intended to be used as a quick frontend for any game prototype, and it is not suggested to use this in a full release unless you are comfortable configuring and tweaking the included animations and scenes. 
 
