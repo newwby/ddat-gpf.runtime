@@ -1,0 +1,244 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://src/runtime/preload/font_preset_preload_loading_bar.res" type="DynamicFont" id=1]
+[ext_resource path="res://src/runtime/preload/font_preset_splash_title.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/runtime/preload/font_preset_press_any_key.res" type="DynamicFont" id=3]
+[ext_resource path="res://src/runtime/preload/font_preset_preload_body.tres" type="DynamicFont" id=4]
+[ext_resource path="res://src/runtime/preload/anim_show_preload_splash.tres" type="Animation" id=5]
+[ext_resource path="res://src/runtime/preload/texture_bkg_preload_splash.png" type="Texture" id=6]
+[ext_resource path="res://art/promotional/mnmm_idv2_512px.png" type="Texture" id=7]
+[ext_resource path="res://src/runtime/preload/preload_handler.gd" type="Script" id=8]
+[ext_resource path="res://src/runtime/preload/anim_fade_preload_splash.tres" type="Animation" id=9]
+[ext_resource path="res://src/runtime/preload/anim_input_hint.tres" type="Animation" id=10]
+[ext_resource path="res://src/runtime/preload/anim_fade_loading_controls.tres" type="Animation" id=11]
+[ext_resource path="res://src/runtime/preload/anim_loading_increment.tres" type="Animation" id=12]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 0.6, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=2]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="PreloadingHandler" type="Node"]
+script = ExtResource( 8 )
+_game_handler_id = 1
+
+[node name="PreloadCanvas" type="CanvasLayer" parent="."]
+
+[node name="Root" type="Control" parent="PreloadCanvas"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureBKG" type="TextureRect" parent="PreloadCanvas/Root"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="PreloadCanvas/Root"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+custom_constants/margin_right = 25
+custom_constants/margin_top = 25
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PreloadCanvas/Root/Margin"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 1895.0
+margin_bottom = 1055.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PreloadCanvas/Root/Margin/VBoxContainer"]
+margin_right = 1870.0
+margin_bottom = 649.0
+mouse_filter = 2
+
+[node name="SplashLogo" type="TextureRect" parent="PreloadCanvas/Root/Margin/VBoxContainer/HBoxContainer"]
+margin_right = 512.0
+margin_bottom = 649.0
+mouse_filter = 2
+size_flags_horizontal = 0
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DevTextContainer" type="VBoxContainer" parent="PreloadCanvas/Root/Margin/VBoxContainer/HBoxContainer"]
+margin_left = 670.0
+margin_right = 1870.0
+margin_bottom = 649.0
+rect_min_size = Vector2( 270, 0 )
+mouse_filter = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DevBuildTextTitle" type="Label" parent="PreloadCanvas/Root/Margin/VBoxContainer/HBoxContainer/DevTextContainer"]
+margin_left = 100.0
+margin_right = 1100.0
+margin_bottom = 111.0
+rect_min_size = Vector2( 1000, 75 )
+size_flags_horizontal = 6
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 1, 1, 1 )
+text = "This is an early development build!"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSep" type="HSeparator" parent="PreloadCanvas/Root/Margin/VBoxContainer/HBoxContainer/DevTextContainer"]
+margin_top = 115.0
+margin_right = 1200.0
+margin_bottom = 145.0
+mouse_filter = 2
+custom_constants/separation = 30
+
+[node name="DevBuildTextBody" type="Label" parent="PreloadCanvas/Root/Margin/VBoxContainer/HBoxContainer/DevTextContainer"]
+margin_top = 149.0
+margin_right = 1200.0
+margin_bottom = 649.0
+rect_min_size = Vector2( 1200, 500 )
+size_flags_horizontal = 6
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0.392157, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/line_spacing = 10
+custom_constants/shadow_offset_y = 3
+custom_constants/shadow_as_outline = 1
+text = "There may be bugs, unbalanced gameplay elements, and placeholders. Content is likely to change markedly between versions, and the current state of the game does not reflect the intended end project. Thank you for understanding."
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomUpperMid" type="VBoxContainer" parent="PreloadCanvas/Root/Margin/VBoxContainer"]
+margin_left = 479.0
+margin_top = 855.0
+margin_right = 1391.0
+margin_bottom = 1030.0
+rect_min_size = Vector2( 270, 0 )
+mouse_filter = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadingControlsContainer" type="VBoxContainer" parent="PreloadCanvas/Root/Margin/VBoxContainer/BottomUpperMid"]
+margin_left = 321.0
+margin_right = 591.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 270, 0 )
+mouse_filter = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadingText" type="Label" parent="PreloadCanvas/Root/Margin/VBoxContainer/BottomUpperMid/LoadingControlsContainer"]
+margin_left = 48.0
+margin_right = 221.0
+margin_bottom = 36.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 4 )
+text = "Loading"
+align = 1
+valign = 1
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadingBar" type="ProgressBar" parent="PreloadCanvas/Root/Margin/VBoxContainer/BottomUpperMid/LoadingControlsContainer"]
+margin_top = 40.0
+margin_right = 270.0
+margin_bottom = 71.0
+mouse_filter = 2
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="BottomLowerMid" type="VBoxContainer" parent="PreloadCanvas/Root/Margin/VBoxContainer/BottomUpperMid"]
+margin_top = 121.0
+margin_right = 912.0
+margin_bottom = 175.0
+rect_min_size = Vector2( 270, 0 )
+mouse_filter = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InputHint" type="Label" parent="PreloadCanvas/Root/Margin/VBoxContainer/BottomUpperMid/BottomLowerMid"]
+margin_right = 912.0
+margin_bottom = 54.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 3 )
+text = "PRESS ANY KEY TO CONTINUE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer_Visibility" type="AnimationPlayer" parent="."]
+playback_speed = 0.35
+anims/anim_fade_preload_splash = ExtResource( 9 )
+anims/anim_show_preload_splash = ExtResource( 5 )
+
+[node name="AnimationPlayer_InputHint" type="AnimationPlayer" parent="."]
+anims/anim_input_hint = ExtResource( 10 )
+
+[node name="AnimationPlayer_LoadProgress" type="AnimationPlayer" parent="."]
+playback_speed = 0.5
+anims/anim_fade_loading_controls = ExtResource( 11 )
+anims/anim_loading_increment = ExtResource( 12 )
+[connection signal="animation_finished" from="AnimationPlayer_Visibility" to="." method="_on_open_preload_splash_finished"]

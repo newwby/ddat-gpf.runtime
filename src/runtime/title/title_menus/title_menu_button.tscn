@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/runtime/title/title_menus/title_main/font_preset_title_menu_button.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_normal.tres" type="StyleBox" id=2]
+[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_hovered.tres" type="StyleBox" id=3]
+[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_disabled.tres" type="StyleBox" id=4]
+[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_focused.tres" type="StyleBox" id=5]
+[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_pressed.tres" type="StyleBox" id=6]
+[ext_resource path="res://src/runtime/title/title_menus/title_menu_button.gd" type="Script" id=7]
+
+[node name="TitleMenuButton" type="Button"]
+margin_right = 458.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 0, 50 )
+custom_colors/font_color_disabled = Color( 0.294118, 0.294118, 0.294118, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1.25, 1 )
+custom_colors/font_color_pressed = Color( 1, 1.25, 1, 1 )
+custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 2 )
+button_mask = 3
+text = "BUTTON TEXT"
+align = 0
+script = ExtResource( 7 )
+
+[connection signal="focus_entered" from="." to="." method="_on_TitleMenuButton_focus_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_TitleMenuButton_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_TitleMenuButton_pressed"]
