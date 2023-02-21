@@ -14,10 +14,8 @@ script = ExtResource( 3 )
 [node name="TitleHandler" parent="." instance=ExtResource( 2 )]
 
 [node name="GameMetaHandler" parent="." instance=ExtResource( 5 )]
-game_file = null
 
 [node name="ExitHandler" parent="." instance=ExtResource( 4 )]
 
 [connection signal="change_state" from="PreloadingHandler" to="." method="change_game_state"]
-[connection signal="change_state" from="TitleHandler" to="." method="change_game_state"]
 [connection signal="change_state" from="GameMetaHandler" to="." method="change_game_state"]

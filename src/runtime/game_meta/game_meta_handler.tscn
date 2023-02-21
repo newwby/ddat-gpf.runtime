@@ -1,13 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/runtime/game_meta/game_meta_handler.gd" type="Script" id=1]
 [ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/game_meta_load_dialog.tscn" type="PackedScene" id=2]
-[ext_resource path="res://_exclude/_devtests/experiments/experiment_angleto_tests.tscn" type="PackedScene" id=3]
 
 [node name="GameMetaHandler" type="Node"]
 script = ExtResource( 1 )
 _game_handler_id = 3
-game_file = ExtResource( 3 )
 
 [node name="InterfaceCanvas" type="CanvasLayer" parent="."]
 
