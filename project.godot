@@ -10,6 +10,16 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
+"class": "CompoundActionExtension",
+"language": "GDScript",
+"path": "res://src/class/class_compound_action_extension.gd"
+}, {
+"base": "Reference",
+"class": "Conditional",
+"language": "GDScript",
+"path": "res://src/class/class_conditional.gd"
+}, {
+"base": "Resource",
 "class": "GameDataContainer",
 "language": "GDScript",
 "path": "res://src/runtime/classes/class_game_data_container.gd"
@@ -35,6 +45,8 @@ _global_script_classes=[ {
 "path": "res://src/runtime/title/title_menus/class_title_menu.gd"
 } ]
 _global_script_class_icons={
+"CompoundActionExtension": "",
+"Conditional": "",
 "GameDataContainer": "",
 "GameGlobal": "",
 "GameProgressFile": "",
@@ -46,6 +58,7 @@ _global_script_class_icons={
 
 config/name="# [ddat-gpf.3] Runtime Scaffold"
 config/description="workspace to focus on developing a series of runtime scenes for quick prototyping"
+run/main_scene="res://src/runtime/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="ddat_framework_input"
 config/icon="res://art/splash/ddat_icon.png"
