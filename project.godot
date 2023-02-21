@@ -69,6 +69,7 @@ GlobalData="*res://src/autoload/global_data.gd"
 GlobalDebug="*res://src/autoload/global_debug.gd"
 GlobalDevTools="*res://src/autoload/global_devtools.tscn"
 GlobalInput="*res://src/autoload/global_input.gd"
+GlobalConfig="*res://src/autoload/global_config.gd"
 
 [debug]
 
