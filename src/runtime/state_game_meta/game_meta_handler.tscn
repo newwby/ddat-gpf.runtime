@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/runtime/game_meta/game_meta_handler.gd" type="Script" id=1]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/game_meta_load_dialog.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/runtime/state_game_meta/game_meta_handler.gd" type="Script" id=1]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/game_meta_load_dialog.tscn" type="PackedScene" id=2]
 
 [node name="GameMetaHandler" type="Node"]
 script = ExtResource( 1 )

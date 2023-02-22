@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/runtime/title/title_menus/title_main/title_main.gd" type="Script" id=1]
-[ext_resource path="res://src/runtime/title/title_menus/title_menu_button.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_panel_title_main_button_background.tres" type="StyleBox" id=3]
-[ext_resource path="res://src/runtime/title/title_menus/title_main/anim_opening_first_open.tres" type="Animation" id=4]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/title_main.gd" type="Script" id=1]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_menu_button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/style_preset_panel_title_main_button_background.tres" type="StyleBox" id=3]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/anim_opening_first_open.tres" type="Animation" id=4]
 
 [node name="MenuTitleMain" type="Control"]
 margin_left = -960.0

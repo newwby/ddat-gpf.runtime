@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/texture_bkg_preload_splash.png-015afc1ff276aa8ea9feb5a0a3e8e0fd.stex"
+path="res://.import/texture_bkg_preload_splash.png-794db8244057a2622adade6dd25b2e6b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/runtime/preload/texture_bkg_preload_splash.png"
-dest_files=[ "res://.import/texture_bkg_preload_splash.png-015afc1ff276aa8ea9feb5a0a3e8e0fd.stex" ]
+source_file="res://src/runtime/state_preload/texture_bkg_preload_splash.png"
+dest_files=[ "res://.import/texture_bkg_preload_splash.png-794db8244057a2622adade6dd25b2e6b.stex" ]
 
 [params]
 

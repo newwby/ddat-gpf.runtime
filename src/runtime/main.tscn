@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/runtime/preload/preload_handler.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/runtime/title/title_handler.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/runtime/state_preload/preload_handler.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/runtime/state_title/title_handler.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/runtime/main.gd" type="Script" id=3]
-[ext_resource path="res://src/runtime/exit/exit_handler.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/runtime/game_meta/game_meta_handler.tscn" type="PackedScene" id=5]
-[ext_resource path="res://_dev_exclude/runtime_test_scene.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/runtime/state_exit/exit_handler.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/runtime/state_game_meta/game_meta_handler.tscn" type="PackedScene" id=5]
 
 [node name="RuntimeMain" type="Node"]
 script = ExtResource( 3 )
@@ -15,7 +14,6 @@ script = ExtResource( 3 )
 [node name="TitleHandler" parent="." instance=ExtResource( 2 )]
 
 [node name="GameMetaHandler" parent="." instance=ExtResource( 5 )]
-game_file = ExtResource( 6 )
 
 [node name="ExitHandler" parent="." instance=ExtResource( 4 )]
 

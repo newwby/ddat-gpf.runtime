@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/ui/splash/mnmm_logo_animated/mnmm_logo_idle.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/runtime/title/title_handler.gd" type="Script" id=2]
+[ext_resource path="res://src/runtime/state_title/title_handler.gd" type="Script" id=2]
 [ext_resource path="res://src/ui/splash/mnmm_logo_animated/mnmm_logo_wipe_horizontal.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/runtime/title/title_menus/title_main/title_main.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/runtime/title/title_menus/title_config/title_config.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/runtime/title/title_menus/title_about/title_about.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/runtime/title/title_menus/title_controls/title_controls.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/runtime/title/anim_title_canvas_fade_in.tres" type="Animation" id=8]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/title_main.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_config/title_config.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_about/title_about.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_controls/title_controls.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/runtime/state_title/anim_title_canvas_fade_in.tres" type="Animation" id=8]
 
 [sub_resource type="Animation" id=1]
 length = 0.001

@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://art/promotional/ddat_logo.png" type="Texture" id=1]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/save_file_ui_element.gd" type="Script" id=2]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/style_preset_button_save_file_hover.tres" type="StyleBox" id=3]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/style_preset_button_save_file_focus.tres" type="StyleBox" id=4]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/style_preset_button_save_file_pressed.tres" type="StyleBox" id=5]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/style_preset_button_save_file_normal.tres" type="StyleBox" id=6]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/style_preset_button_save_file_disabled.tres" type="StyleBox" id=7]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/font_preset_save_file_element_button.tres" type="DynamicFont" id=8]
-[ext_resource path="res://src/runtime/game_meta/game_file_load_dialog/font_preset_save_file_element_info_label.tres" type="DynamicFont" id=9]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/save_file_ui_element.gd" type="Script" id=2]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_hover.tres" type="StyleBox" id=3]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_focus.tres" type="StyleBox" id=4]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_pressed.tres" type="StyleBox" id=5]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_normal.tres" type="StyleBox" id=6]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_disabled.tres" type="StyleBox" id=7]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/font_preset_save_file_element_button.tres" type="DynamicFont" id=8]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/font_preset_save_file_element_info_label.tres" type="DynamicFont" id=9]
 
 [node name="SaveFileElement" type="HBoxContainer"]
 margin_right = 920.0

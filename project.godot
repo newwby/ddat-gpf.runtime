@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "GameMenuWindow",
 "class": "TitleMenuWindow",
 "language": "GDScript",
-"path": "res://src/runtime/title/title_menus/class_title_menu.gd"
+"path": "res://src/runtime/state_title/title_menus/class_title_menu.gd"
 } ]
 _global_script_class_icons={
 "CompoundActionExtension": "",

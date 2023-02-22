@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/runtime/title/title_options.gd" type="Script" id=1]
-[ext_resource path="res://src/runtime/title/title_menus/title_menu_button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/runtime/state_title/title_options.gd" type="Script" id=1]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_menu_button.tscn" type="PackedScene" id=2]
 
-[node name="MenuConfigurationOptions" type="Control"]
+
+[node name="MenuControlOptions" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
 mouse_filter = 2
@@ -15,7 +16,7 @@ margin_top = 528.0
 margin_right = 562.0
 margin_bottom = 648.0
 rect_scale = Vector2( 5, 5 )
-text = "HELLO I AM PLACEHOLDER CONFIG MENU"
+text = "HELLO I AM PLACEHOLDER CONTROL MENU"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_right = 1920.0

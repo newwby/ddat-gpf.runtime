@@ -1,12 +1,13 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://src/runtime/title/title_menus/title_main/font_preset_title_menu_button.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_normal.tres" type="StyleBox" id=2]
-[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_hovered.tres" type="StyleBox" id=3]
-[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_disabled.tres" type="StyleBox" id=4]
-[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_focused.tres" type="StyleBox" id=5]
-[ext_resource path="res://src/runtime/title/title_menus/title_main/style_preset_button_title_menu_button_pressed.tres" type="StyleBox" id=6]
-[ext_resource path="res://src/runtime/title/title_menus/title_menu_button.gd" type="Script" id=7]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/font_preset_title_menu_button.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/style_preset_button_title_menu_button_normal.tres" type="StyleBox" id=2]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/style_preset_button_title_menu_button_hovered.tres" type="StyleBox" id=3]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/style_preset_button_title_menu_button_disabled.tres" type="StyleBox" id=4]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/style_preset_button_title_menu_button_focused.tres" type="StyleBox" id=5]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_main/style_preset_button_title_menu_button_pressed.tres" type="StyleBox" id=6]
+[ext_resource path="res://src/runtime/state_title/title_menus/title_menu_button.gd" type="Script" id=7]
+
 
 [node name="TitleMenuButton" type="Button"]
 margin_right = 458.0
