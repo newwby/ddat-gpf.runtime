@@ -10,9 +10,7 @@ extends GameStateHandler
 
 #05. signals
 
-# start the idle logo animation fly up
-signal start_animation_introduction()
-signal start_animation_window_change()
+#signal start_animation_window_change()
 
 #06. enums
 
@@ -53,16 +51,20 @@ var _upcoming_window_state = null setget _set_upcoming_window_state
 onready var root_node: Control =\
 		$TitleMenuCanvas/Root
 
-# node references for the animated logos used for transition animations
+# node references for animation managers and players
 #
 onready var canvas_fade_anim_node: AnimationPlayer =\
 		$TitleMenuCanvas/Root/CanvasFadeAnim
-# warning-ignore:unused_class_variable
-onready var animated_logo_node_idle: Node2D =\
-		$TitleMenuCanvas/Root/Overlay/MNMM_Idle_LogoAnim
-# warning-ignore:unused_class_variable
-#onready var animated_logo_node_side_wipe: Node2D =\
-#		$TitleMenuCanvas/Root/Overlay/MNMM_LogoAnimated_SideWipe
+# these are independent scenes, modify these to add your own animations
+# start them with the call_animation method (already in code)
+# they return on the 'animation_finished' signal
+onready var anim_mgr_intro = $IntroAnimMgr
+onready var anim_mgr_menu_transition = $MenuTransitionAnimMgr
+onready var anim_mgr_exit = $ExitAnimMgr
+
+# parent to (and thus can hide) all title menus
+# deprecated direct node visibility ref, use _toggle_canvas_visibility instead
+#onready var menu_holder_node = $TitleMenuCanvas/Root/MenuHolder
 
 # node references for the individual title menu nodes
 #
@@ -108,8 +110,6 @@ func _set_active_title_window_state(value):
 # whenever upcoming window state is set via transition_to_menu method()
 # start the animation for window change
 func _set_upcoming_window_state(new_state):
-	# play window change animation backward on returning to main title
-	var reverse_anim: bool = false
 	if new_state in TITLE_WINDOW_STATE.values():
 		GlobalDebug.log_success(VERBOSE_LOGGING, SCRIPT_NAME,
 				"_set_upcoming_window_state",
@@ -118,9 +118,7 @@ func _set_upcoming_window_state(new_state):
 					"new" : new_state
 				}))
 		_upcoming_window_state = new_state
-		if _upcoming_window_state == TITLE_WINDOW_STATE.MAIN:
-			reverse_anim = true
-	_animation_window_change_start(reverse_anim)
+	_animation_window_change_start()
 
 
 ##############################################################################
@@ -174,13 +172,6 @@ func change_window_state(force_state_change = null):
 	if get_new_menu_window_node != null:
 		if get_new_menu_window_node is TitleMenuWindow:
 			get_new_menu_window_node.open_title_menu_window()
-		
-		#// TODO non-modular need fix
-		# MNMM idle logo should only be visible for main title menu
-		#// TODO add fade out animation for the logo instead?
-		#// TODO move this under the title
-		animated_logo_node_idle.visible =\
-				(get_new_menu_window_node == title_menu_node_main)
 
 
 # if passed arg is_start_game as true will call game meta state (start playing)
@@ -191,14 +182,9 @@ func exit_title_state_handler(is_start_game: bool):
 		# block input for a moment
 		GlobalInput.is_input_captured.set_condition(\
 				SCRIPT_NAME+"_on_anim_exit", true)
-		animated_logo_node_idle.play_exit_animation_up()
-		_toggle_canvas_visibility(false)
-		# wait until the animation flyup finishes
-		yield(animated_logo_node_idle, "exit_animation_completed")
-		# restore input control
-		GlobalInput.is_input_captured.clear_condition(\
-				SCRIPT_NAME+"_on_anim_exit")
-		emit_signal("change_state", GAME_STATE.GAME_META)
+		
+		# ADD EXIT ANIMATION BEHAVIOUR HERE
+		anim_mgr_exit.call_animation()
 	
 	# if false we call gameStateExit
 	elif not is_start_game:
@@ -212,6 +198,7 @@ func exit_title_state_handler(is_start_game: bool):
 
 # shadows the parent class method
 func _call_state_initial():
+	print("test hi")
 	_animation_introduction_start()
 
 
@@ -263,19 +250,15 @@ func _toggle_canvas_visibility(new_visibility_state: bool):
 
 func _animation_introduction_start():
 	GlobalInput.is_input_captured.set_condition(SCRIPT_NAME+"_on_anim_1", true)
-	emit_signal("start_animation_introduction")
+	anim_mgr_intro.call_animation()
 
 
 # this is called by setting self._upcoming_window_state via
 # transition_to_menu() method
-func _animation_window_change_start(reverse_anim: bool = false):
+func _animation_window_change_start():
 	GlobalInput.is_input_captured.set_condition(SCRIPT_NAME+"_on_anim_2", true)
-	emit_signal("start_animation_window_change", reverse_anim)
-
-
-# by signal, called in middle of animation
-func _animation_window_change_midpoint():
-	change_window_state()
+#	emit_signal("start_animation_window_change", reverse_anim)
+	anim_mgr_menu_transition.call_animation()
 
 
 ##############################################################################
@@ -283,15 +266,24 @@ func _animation_window_change_midpoint():
 # signal receipt methods
 
 
-# connected from MNMM_LogoAnimated_Idle "transition_animation_completed" signal
-func _on_animation_introduction_end():
-	#// deprecated fade
-#	animated_logo_node_idle.play_fade_animation_out()
+
+func _on_intro_anim_mgr_animation_finished():
 	GlobalInput.is_input_captured.clear_condition(SCRIPT_NAME+"_on_anim_1")
+#	change_window_state(TITLE_WINDOW_STATE.MAIN)
+	_toggle_canvas_visibility(true)
 	call_state()
 
 
-# returns input control to the player
-func _on_animation_window_change_end():
+func _on_menu_transition_anim_mgr_animation_finished():
+	change_window_state()
 	GlobalInput.is_input_captured.clear_condition(SCRIPT_NAME+"_on_anim_2")
+
+
+func _on_exit_anim_mgr_animation_finished():
+			# hide title buttons
+			_toggle_canvas_visibility(false)
+			# restore input control
+			GlobalInput.is_input_captured.clear_condition(\
+					SCRIPT_NAME+"_on_anim_exit")
+			emit_signal("change_state", GAME_STATE.GAME_META)
 

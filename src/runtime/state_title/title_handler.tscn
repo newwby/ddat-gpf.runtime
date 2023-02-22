@@ -1,13 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://src/ui/splash/mnmm_logo_animated/mnmm_logo_idle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/runtime/state_title/title_menus/animation_mgrs/title_anim_mgr_exit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/runtime/state_title/title_handler.gd" type="Script" id=2]
-[ext_resource path="res://src/ui/splash/mnmm_logo_animated/mnmm_logo_wipe_horizontal.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/runtime/state_title/title_menus/animation_mgrs/title_anim_mgr_menu_transition.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/runtime/state_title/title_menus/title_main/title_main.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/runtime/state_title/title_menus/title_config/title_config.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/runtime/state_title/title_menus/title_about/title_about.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/runtime/state_title/title_menus/title_controls/title_controls.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/runtime/state_title/anim_title_canvas_fade_in.tres" type="Animation" id=8]
+[ext_resource path="res://src/runtime/state_title/title_menus/animation_mgrs/title_anim_mgr_intro.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -61,6 +62,7 @@ margin_bottom = 1080.0
 mouse_filter = 2
 
 [node name="MenuHolder" type="Control" parent="TitleMenuCanvas/Root"]
+visible = false
 margin_left = -480.0
 margin_right = 1440.0
 margin_bottom = 1080.0
@@ -68,28 +70,29 @@ mouse_filter = 2
 
 [node name="MenuTitleMain" parent="TitleMenuCanvas/Root/MenuHolder" instance=ExtResource( 4 )]
 
+[node name="Main" parent="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain" index="0"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MenuConfigurationOptions" parent="TitleMenuCanvas/Root/MenuHolder" instance=ExtResource( 5 )]
 
 [node name="MenuControlOptions" parent="TitleMenuCanvas/Root/MenuHolder" instance=ExtResource( 7 )]
 
 [node name="MenuAboutInfo" parent="TitleMenuCanvas/Root/MenuHolder" instance=ExtResource( 6 )]
 
-[node name="Overlay" type="Control" parent="TitleMenuCanvas/Root"]
-margin_right = 1920.0
-margin_bottom = 1080.0
-mouse_filter = 2
-
-[node name="MNMM_Idle_LogoAnim" parent="TitleMenuCanvas/Root/Overlay" instance=ExtResource( 1 )]
-position = Vector2( 480, 0 )
-
-[node name="MNMM_Wipe_LogoAnim" parent="TitleMenuCanvas/Root/Overlay" instance=ExtResource( 3 )]
-
 [node name="CanvasFadeAnim" type="AnimationPlayer" parent="TitleMenuCanvas/Root"]
 anims/RESET = SubResource( 1 )
 anims/fade_in = ExtResource( 8 )
 
-[connection signal="start_animation_introduction" from="." to="TitleMenuCanvas/Root/Overlay/MNMM_Idle_LogoAnim" method="play_transition_animation_up"]
-[connection signal="start_animation_window_change" from="." to="TitleMenuCanvas/Root/Overlay/MNMM_Wipe_LogoAnim" method="_on_title_state_handler_animation_start"]
+[node name="IntroAnimMgr" parent="." instance=ExtResource( 9 )]
+
+[node name="MenuTransitionAnimMgr" parent="." instance=ExtResource( 3 )]
+
+[node name="ExitAnimMgr" parent="." instance=ExtResource( 1 )]
+margin_left = 480.0
+margin_right = 2400.0
+
 [connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/StartGame" to="." method="exit_title_state_handler" binds= [ true ]]
 [connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/ToConfigMenu" to="." method="transition_to_menu" binds= [ 2 ]]
 [connection signal="main_window_last_focused_button" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/ToControlsMenu" to="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain" method="update_last_focused_button"]
@@ -99,9 +102,9 @@ anims/fade_in = ExtResource( 8 )
 [connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuConfigurationOptions/MarginContainer/TitleMenuButton" to="." method="transition_to_menu" binds= [ 1 ]]
 [connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuControlOptions/MarginContainer/TitleMenuButton" to="." method="transition_to_menu" binds= [ 1 ]]
 [connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuAboutInfo/MarginContainer/TitleMenuButton" to="." method="transition_to_menu" binds= [ 1 ]]
-[connection signal="transition_animation_completed" from="TitleMenuCanvas/Root/Overlay/MNMM_Idle_LogoAnim" to="." method="_on_animation_introduction_end"]
-[connection signal="AnimationComplete" from="TitleMenuCanvas/Root/Overlay/MNMM_Wipe_LogoAnim" to="." method="_on_animation_window_change_end"]
-[connection signal="AnimationMidpoint" from="TitleMenuCanvas/Root/Overlay/MNMM_Wipe_LogoAnim" to="." method="_animation_window_change_midpoint"]
+[connection signal="animation_finished" from="IntroAnimMgr" to="." method="_on_intro_anim_mgr_animation_finished"]
+[connection signal="animation_finished" from="MenuTransitionAnimMgr" to="." method="_on_menu_transition_anim_mgr_animation_finished"]
+[connection signal="animation_finished" from="ExitAnimMgr" to="." method="_on_exit_anim_mgr_animation_finished"]
 
 [editable path="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain"]
 [editable path="TitleMenuCanvas/Root/MenuHolder/MenuConfigurationOptions"]
