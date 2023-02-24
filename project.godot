@@ -78,10 +78,6 @@ GlobalInput="*res://src/autoload/global_input.gd"
 GlobalConfig="*res://src/autoload/global_config.gd"
 GlobalProgression="*res://src/autoload/global_progression.gd"
 
-[debug]
-
-settings/stdout/verbose_stdout=true
-
 [display]
 
 window/size/width=1920
@@ -94,3 +90,7 @@ script_templates_search_path="res://_dev/default_scripts"
 [logging]
 
 file_logging/enable_file_logging=true
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=8192
