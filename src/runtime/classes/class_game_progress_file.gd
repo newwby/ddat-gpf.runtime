@@ -23,7 +23,7 @@ class_name GameProgressFile
 # warning-ignore:unused_class_variable
 #var game_file_creation_date
 
-export var total_playtime := 0 setget _set_total_playtime, _get_total_playtime
+export var total_playtime := 0 setget _set_total_playtime
 
 # the key/value pairs of this dict are shown on the save file element when
 # loading/saving the game. Both the key and value are displayed on the file
@@ -44,12 +44,13 @@ export var save_file_element_info = {
 # when updating total playtime value, set the corresponding dict value
 func _set_total_playtime(value: int):
 	total_playtime = value
-	save_file_element_info["Total Playtime"] = self.total_playtime
+	save_file_element_info["Total Playtime"] =\
+			_convert_seconds_to_time_string(total_playtime)
 
 
 # when reading the total playtime value it returns a formatted string instead
-func _get_total_playtime():
-	var playtime_seconds: int = total_playtime
+func _convert_seconds_to_time_string(arg_seconds: int):
+	var playtime_seconds: int = arg_seconds
 	var playtime_minutes: int = 0
 	var playtime_hours: int = 0
 	
@@ -71,6 +72,15 @@ func _get_total_playtime():
 
 ##############################################################################
 
+# public
+
+#//REMOVED
+## because the getter interferes with setting it externally
+#func increment_playtime(arg_increment: int):
+#	total_playtime += arg_increment
+#	print(total_playtime)
+#	print(save_file_element_info["Total Playtime"])
+
 
 # method to recieve data
 #func load_game():
@@ -80,6 +90,9 @@ func _get_total_playtime():
 # method to commit data
 #func save_game():
 #	pass
+
+
+##############################################################################
 
 ##
 
