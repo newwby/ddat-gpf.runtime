@@ -8,6 +8,13 @@ extends GameGlobal
 # Part of the runtime framework, it is largely called by the GameMeta,
 # GameLive, and GamePause, states.
 #
+
+#//TODO
+# move fileLoader behaviour for loading save file to a method here
+# add save method with optional arg to unload the save file if doing so
+# move quit game behaviour to here, so files can be safely saved on exit
+# add autosave timer and method to adjust interval (integrate w/globalConfig)
+
 ##############################################################################
 
 #05. signals
