@@ -25,6 +25,15 @@ class_name GameProgressFile
 
 export var total_playtime := 0 setget _set_total_playtime
 
+#//TODO, store the timezone when creating file and reference it whenever
+# changing the modified date so created date/modified date can be adjusted
+#export var file_timezone: Dictionary
+
+# track of date and time file was created on
+export var timestamp_created: Dictionary setget _set_timestamp_created
+# when file was last opened or saved
+export var timestamp_modified: Dictionary setget _set_timestamp_modified
+
 # the key/value pairs of this dict are shown on the save file element when
 # loading/saving the game. Both the key and value are displayed on the file
 # info, so use readable strings when adding new key/value pairs.
@@ -42,10 +51,22 @@ export var save_file_element_info = {
 
 
 # when updating total playtime value, set the corresponding dict value
-func _set_total_playtime(value: int):
-	total_playtime = value
+func _set_total_playtime(arg_value: int):
+	total_playtime = arg_value
 	save_file_element_info["Total Playtime"] =\
 			_convert_seconds_to_time_string(total_playtime)
+
+
+func _set_timestamp_created(arg_value: Dictionary):
+	timestamp_created = arg_value
+	save_file_element_info["File Created On"] =\
+			_convert_datetime_dict_to_save_info(timestamp_created)
+
+
+func _set_timestamp_modified(arg_value: Dictionary):
+	timestamp_modified = arg_value
+	save_file_element_info["Last Played"] =\
+			_convert_datetime_dict_to_save_info(timestamp_modified)
 
 
 # when reading the total playtime value it returns a formatted string instead
@@ -68,6 +89,81 @@ func _convert_seconds_to_time_string(arg_seconds: int):
 		"s": playtime_seconds
 	})
 	return time_string
+
+
+func _convert_datetime_dict_to_save_info(datetime_dict: Dictionary) -> String:
+	var file_datetime_info = ""
+	var file_datetime_day = ""
+	var file_datetime_month = ""
+	var file_datetime_year = ""
+	
+	if "day" in datetime_dict.keys():
+		file_datetime_day = str(datetime_dict["day"])
+		# get last digit to determine the suffix
+		var day_suffix = ""
+		var last_digit = str(file_datetime_day)[-1]
+		if last_digit == "3":
+			day_suffix = "rd"
+		elif last_digit == "2":
+			day_suffix = "nd"
+		elif last_digit == "1":
+			day_suffix = "st"
+		else:
+			day_suffix = "th"
+		file_datetime_day += day_suffix
+	
+	if "month" in datetime_dict.keys():
+		file_datetime_month = datetime_dict["month"]
+		if typeof(file_datetime_month) == TYPE_INT:
+			if file_datetime_month in range(1, 12):
+				match file_datetime_month:
+					1:
+						file_datetime_month = "January"
+					2:
+						file_datetime_month = "February"
+					3:
+						file_datetime_month = "March"
+					4:
+						file_datetime_month = "April"
+					5:
+						file_datetime_month = "May"
+					6:
+						file_datetime_month = "June"
+					7:
+						file_datetime_month = "July"
+					8:
+						file_datetime_month = "August"
+					9:
+						file_datetime_month = "September"
+					10:
+						file_datetime_month = "October"
+					11:
+						file_datetime_month = "November"
+					12:
+						file_datetime_month = "December"
+	
+	if "year" in datetime_dict.keys():
+		file_datetime_year = str(datetime_dict["year"])
+	
+	# type convert to catch exceptions
+	file_datetime_info =\
+			str(file_datetime_day)+" "+\
+			str(file_datetime_month)+" "+\
+			str(file_datetime_year)
+	
+	return file_datetime_info
+
+
+##############################################################################
+
+# virt
+
+
+func _init():
+#	file_timezone = Time.get_time_zone_from_system()
+#	Time.get_offset_string_from_offset_minutes()
+	self.timestamp_created = Time.get_datetime_dict_from_system()
+	self.timestamp_modified = timestamp_created
 
 
 ##############################################################################
