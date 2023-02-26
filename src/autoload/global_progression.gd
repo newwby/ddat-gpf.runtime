@@ -85,14 +85,9 @@ func _ready():
 #	if arg_class.has_met
 
 
-##############################################################################
-
-# private
-
-
 # method that instantiates save files
 # returns the created file on success or null on failure
-func _create_game_file():
+func create_game_file():
 	# new save files record their time of creation
 	var new_save_file = GameProgressFile.new()
 	
@@ -123,6 +118,11 @@ func _create_game_file():
 			return new_save_file
 	# catchall exit condition, assumes failure
 	return null
+
+
+##############################################################################
+
+# private
 
 
 func _increment_playtime_tracker():
