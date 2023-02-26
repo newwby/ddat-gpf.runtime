@@ -18,6 +18,10 @@ extends GameGlobal
 ##############################################################################
 
 #05. signals
+# signal emitted whenever the all_game_files array is updated after a new
+# globalProgressFile is recorded
+signal new_game_file_recorded()
+
 #06. enums
 #
 #07. constants
@@ -86,6 +90,41 @@ func _ready():
 # private
 
 
+# method that instantiates save files
+# returns the created file on success or null on failure
+func _create_game_file():
+	# new save files record their time of creation
+	var new_save_file = GameProgressFile.new()
+	
+	var save_id := 1
+	var does_save_id_exist := true
+	var base_save_path =\
+			GlobalData.DATA_PATHS[GlobalData.DATA_PATH_PREFIXES.GAME_SAVE]
+	var save_file_name = "save"+str(save_id)+".tres"
+	# save files are recorded as 'save' with an integer id, i.e. 'save1'
+	# until an unused save id is found, iterate through potential save ids
+	while does_save_id_exist == true:
+		does_save_id_exist = GlobalData.validate_file(\
+				base_save_path+save_file_name)
+		# if already exists, increment the id and attempted path
+		if does_save_id_exist == true:
+			save_id += 1
+			save_file_name = "save"+str(save_id)+".tres"
+		#//TODO add maximum iteration exit condition
+	
+	# the path should not exist to exit the above loop
+	if does_save_id_exist == false:
+		if GlobalData.save_resource(\
+				base_save_path,	save_file_name,	new_save_file) == OK:
+			# if save operation successful
+			all_game_files.append(new_save_file)
+			emit_signal("new_game_file_recorded")
+#			print("save recorded at {p}".format({"p": save_file_name}))
+			return new_save_file
+	# catchall exit condition, assumes failure
+	return null
+
+
 func _increment_playtime_tracker():
 	if loaded_save_file != null:
 #		print("test1")
@@ -108,7 +147,6 @@ func _initiate_playtime_tracker():
 				"timeout", self, "_increment_playtime_tracker") != OK:
 			GlobalDebug.log_error(SCRIPT_NAME, "_initiate_playtime_tracker",
 					"total playtime tracker not setup correctly")
-
 
 # shadowing a parent class method
 # this preload method loads from disk every save file it can find in the
