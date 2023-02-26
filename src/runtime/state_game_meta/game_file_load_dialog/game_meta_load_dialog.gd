@@ -10,6 +10,10 @@ extends CenterContainer
 
 signal begin_game_load()
 
+# for logging
+const SCRIPT_NAME := "GameMetaLoadDialog"
+const VERBOSE_LOGGING := true
+
 var listed_save_file_elements := 0
 
 # node references
@@ -108,9 +112,13 @@ func _on_game_meta_open_game_file_dialog():
 # should check the iterant (see globalProgression._preload) and find the next
 # unused number, then create the save file there
 func _on_game_file_dialog_start_new_save_file():
-	var new_save = GameProgressFile.new()
-	_create_new_save_resource(new_save)
-	_create_new_save_file_element(new_save)
+	var new_save = GlobalProgression.create_game_file()
+	if new_save != null:
+		_create_new_save_file_element(new_save)
+	else:
+		GlobalDebug.log_error(SCRIPT_NAME,
+				"_on_game_file_dialog_start_new_save_file",
+				"new save file was not created correctly")
 
 
 func _on_save_file_chosen():
