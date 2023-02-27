@@ -14,7 +14,7 @@
 
 [sub_resource type="Theme" id=1]
 
-[node name="GameFileDialog" type="CenterContainer"]
+[node name="GameFileLoadDialog" type="CenterContainer"]
 visible = false
 margin_right = 1920.0
 margin_bottom = 1080.0

@@ -4,14 +4,16 @@ extends CenterContainer
 
 ##############################################################################
 #
-# GameFielLoadDialog
+# GameFileLoadDialog
+# ui scene that works with globalProgression singleton to load a game file
+# so devs can store data across play sessions
 #
 ##############################################################################
 
 signal begin_game_load()
 
 # for logging
-const SCRIPT_NAME := "GameMetaLoadDialog"
+const SCRIPT_NAME := "GameMetaFileLoadDialog"
 const VERBOSE_LOGGING := true
 
 var listed_save_file_elements := 0

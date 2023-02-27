@@ -4,10 +4,10 @@ extends GameGlobal
 
 ##############################################################################
 #
-# GlobalProgression is a singleton to track the game state.
-# Part of the runtime framework, it is largely called by the GameMeta,
-# GameLive, and GamePause, states.
-#
+# GlobalProgression is a singleton for the runtime scaffold that manages game
+# data being tracked across play sessions.
+# Additionally GlobalProgression handles calls to exit the game as this has
+# to account for file closing.
 
 #//TODO
 # move fileLoader behaviour for loading save file to a method here
