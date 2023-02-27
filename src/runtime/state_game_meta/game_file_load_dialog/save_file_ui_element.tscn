@@ -130,3 +130,4 @@ custom_constants/separation = 20
 custom_styles/separator = ExtResource( 16 )
 
 [connection signal="pressed" from="VBox/HBox/LoadSaveButton" to="VBox/HBox" method="_on_load_save_button_pressed"]
+[connection signal="pressed" from="VBox/HBox/DeleteSaveButton" to="." method="_on_delete_save_button_pressed"]
