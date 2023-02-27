@@ -120,6 +120,7 @@ func _on_game_meta_open_game_file_dialog():
 	# should return arg "panel_fly_out"
 	yield(popup_animator, "animation_finished")
 	# if there aren't any game files, do nowt
+	new_save_file_button_node.grab_focus()
 	if GlobalProgression.all_game_files.empty():
 		return
 	
@@ -128,7 +129,6 @@ func _on_game_meta_open_game_file_dialog():
 		if save_file is GameProgressFile:
 			_create_new_save_file_element(save_file)
 	
-	new_save_file_button_node.grab_focus()
 #	new_save_file_button_node.grab_click_focus()
 
 
@@ -156,7 +156,6 @@ func _on_save_file_chosen():
 
 func _on_save_file_delete_request(arg_save_file_element_ref: SaveFileElement):
 	pass
-#	arg_save_file_element_ref.my_progress_file.file_path
 	file_delete_request = arg_save_file_element_ref
 	_disable_load_dialog_buttons(true)
 	file_delete_confirmation_popup_node.popup()
@@ -166,10 +165,37 @@ func _delete_save_file():
 	# block all user input whilst the file deletion process starts
 	GlobalInput.is_input_captured.set_condition(SCRIPT_NAME, true)
 	
-#	arg_save_file_element_ref.my
 	#//TODO migrate this block to ddat-gpf.core.globalData
-#	var get_file_path = my_progress_file.file_path
-	
+	var deletion_path := ""
+	if file_delete_request is SaveFileElement:
+		deletion_path = file_delete_request.my_progress_file.file_path
+		# err catch
+		if not GlobalData.validate_file(deletion_path):
+			GlobalDebug.log_error(SCRIPT_NAME, "_delete_save_file",
+					"file at path {p} not found for deletion".format({
+						"p": deletion_path
+					}))
+		# valid
+		else:
+			# move to recycle don't outright delete
+			#//TODO add const for move_to_trash? (w/directory.remove on false?)
+			var global_deletion_path =\
+					ProjectSettings.globalize_path(deletion_path)
+			if OS.move_to_trash(global_deletion_path) != OK:
+				GlobalDebug.log_error(SCRIPT_NAME, "_delete_save_file",
+						"file at path {p} was not succesfully deleted".format({
+							"p": deletion_path
+						}))
+			if file_delete_request in save_file_container_node.get_children():
+#				save_file_container_node.call_deferred("remove_child",\
+#						file_delete_request)
+#				yield(save_file_container_node, "child_exiting_tree")
+#				yield(file_delete_request, "tree_exited")
+				file_delete_request.call_deferred("queue_free")
+	else:
+		GlobalDebug.log_error(SCRIPT_NAME, "_delete_save_file",
+				"file passed for deletion not in loadDialog")
+
 	GlobalInput.is_input_captured.clear_condition(SCRIPT_NAME)
 
 
@@ -193,8 +219,14 @@ func _close_delete_file_popup():
 func _on_delete_file_popup_confirm_pressed():
 	_delete_save_file()
 	_close_delete_file_popup()
+	# default back to new save file button
+	new_save_file_button_node.grab_focus()
 
 
 func _on_delete_file_popup_cancel_pressed():
+	# grab the delete button focus again, preserve locus of control
+	var new_focus_button = file_delete_request.delete_save_button_node
+	if new_focus_button is Button:
+		new_focus_button.grab_focus()
 	_close_delete_file_popup()
 
