@@ -47,6 +47,9 @@ onready var file_info_root_node: VBoxContainer =\
 onready var file_info_default_node: HBoxContainer =\
 		$VBox/HBox/FileInfoContainer/FileInfo
 #		get_node_or_null("FileInfoContainer/FileInfo")
+# node references for buttons
+onready var load_save_button_node: Button = $VBox/HBox/LoadSaveButton
+onready var delete_save_button_node: Button = $VBox/HBox/DeleteSaveButton
 
 ##############################################################################
 
@@ -114,6 +117,8 @@ func _process(_delta):
 
 ##############################################################################
 
+# public
+
 
 # try not to call this method until the save file ui element is in the tree
 # when ready to use this save file element, initialise it with this method
@@ -125,7 +130,17 @@ func init_save_file_element(arg_progfile: GameProgressFile, arg_save_id: int):
 #	if arg_progfile != null:
 #		_build_file_info_elements()
 
+
+func disable_buttons(is_disabled: bool = true):
+	if load_save_button_node != null:
+		load_save_button_node.disabled = is_disabled
+	if delete_save_button_node != null:
+		delete_save_button_node.disabled = is_disabled
+
+
 ##############################################################################
+
+# priv
 
 
 # this method creates and structures fileInfo label pairs based on the progress
@@ -189,4 +204,3 @@ func _on_load_save_button_pressed():
 func _on_delete_save_button_pressed():
 	# pass a reference to self back
 	emit_signal("delete_button_pressed", self)
-

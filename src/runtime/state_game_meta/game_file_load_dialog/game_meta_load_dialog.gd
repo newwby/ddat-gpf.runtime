@@ -16,6 +16,8 @@ signal begin_game_load()
 const SCRIPT_NAME := "GameMetaFileLoadDialog"
 const VERBOSE_LOGGING := true
 
+const GROUPSTRING_SAVE_FILE_ELEMENTS := "group_save_file_elements"
+
 var listed_save_file_elements := 0
 
 # when a file is flagged for deletion the save file element is stored briefly
@@ -25,12 +27,17 @@ var file_delete_request: SaveFileElement
 #
 onready var popup_animator: AnimationPlayer = $Panel/PopupAnimator
 #
+# save file info node refs
 onready var save_file_container_node: VBoxContainer =\
 		$Panel/Margin/ScrollContainer/SaveFileContainer
 onready var save_file_element_scene_default: MarginContainer =\
 		$Panel/Margin/ScrollContainer/SaveFileContainer/SaveFileElement
 onready var new_save_file_button_node =\
 		$Panel/Margin/ScrollContainer/SaveFileContainer/NewSaveFile
+# file deletion confirm popup node refs
+onready var file_delete_confirmation_popup_node = $FileDeleteConfirmationPopup
+onready var file_delete_popup_cancel_button_node =\
+		$FileDeleteConfirmationPopup/Margin/VBox/ButtonContainer/Cancel
 
 
 ##############################################################################
@@ -86,8 +93,18 @@ onready var new_save_file_button_node =\
 func _create_new_save_file_element(arg_save_file: GameProgressFile):
 	listed_save_file_elements += 1
 	var new_save_file_element = save_file_element_scene_default.duplicate()
-	new_save_file_element.connect("save_file_chosen", self, "_on_save_file_chosen")
 	save_file_container_node.call_deferred("add_child", new_save_file_element)
+	# connect confirm button
+	new_save_file_element.connect("save_file_chosen", self, "_on_save_file_chosen")
+	# ready for delete popup functionality
+	new_save_file_element.add_to_group(GROUPSTRING_SAVE_FILE_ELEMENTS)
+	if new_save_file_element is SaveFileElement:
+		if new_save_file_element.connect("delete_button_pressed",\
+				self, "_on_save_file_delete_request") != OK:
+					GlobalDebug.log_error(SCRIPT_NAME,
+							"_create_new_save_file_element",
+							"save file element delete did not find load dialog")
+	# sort info from save progress file
 	new_save_file_element.init_save_file_element(
 			arg_save_file,
 			listed_save_file_elements)
@@ -139,9 +156,13 @@ func _on_save_file_chosen():
 
 func _on_save_file_delete_request(arg_save_file_element_ref: SaveFileElement):
 	pass
-	arg_save_file_element_ref.my_progress_file.file_path
-	
-func _on_save_file_deleted():
+#	arg_save_file_element_ref.my_progress_file.file_path
+	file_delete_request = arg_save_file_element_ref
+	_disable_load_dialog_buttons(true)
+	file_delete_confirmation_popup_node.popup()
+	file_delete_popup_cancel_button_node.grab_focus()
+
+func _delete_save_file():
 	# block all user input whilst the file deletion process starts
 	GlobalInput.is_input_captured.set_condition(SCRIPT_NAME, true)
 	
@@ -152,10 +173,28 @@ func _on_save_file_deleted():
 	GlobalInput.is_input_captured.clear_condition(SCRIPT_NAME)
 
 
+func _disable_load_dialog_buttons(is_disabled: bool = true):
+	var save_file_elements =\
+			get_tree().get_nodes_in_group(GROUPSTRING_SAVE_FILE_ELEMENTS)
+	for file_element_node in save_file_elements:
+		if file_element_node is SaveFileElement:
+			file_element_node.disable_buttons(is_disabled)
+	if new_save_file_button_node != null:
+		new_save_file_button_node.disabled = is_disabled
+
+
+func _close_delete_file_popup():
+	file_delete_confirmation_popup_node.visible = false
+	# clear request
+	file_delete_request = null
+	_disable_load_dialog_buttons(false)
+
 
 func _on_delete_file_popup_confirm_pressed():
-	pass # Replace with function body.
+	_delete_save_file()
+	_close_delete_file_popup()
 
 
 func _on_delete_file_popup_cancel_pressed():
-	pass # Replace with function body.
+	_close_delete_file_popup()
+
