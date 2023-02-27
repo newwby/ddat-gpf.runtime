@@ -59,10 +59,10 @@ class FileInfoElement:
 	func _init(key_text: String, value_text: String):
 		self._intended_key_label_text = key_text
 		self._intended_value_label_text = value_text
-		print(self, " key text = ", key_text)
+#		print(self, " key text = ", key_text)
 	
 	func get_key_label():
-		return _intended_key_label_text
+		return _intended_key_label_text+":"
 	
 	func get_value_label():
 		return _intended_value_label_text
