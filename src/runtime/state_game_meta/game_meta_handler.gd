@@ -62,7 +62,11 @@ func _ready():
 # meta states 'called once' flag is unset
 # first time the game meta state is called, open the game file dialog
 func _call_state_initial():
-	emit_signal("open_game_file_dialog")
+	# call progress file handling or skip over the step
+	if GlobalProgression.ENABLE_GAME_PROGRESS_FILES:
+		emit_signal("open_game_file_dialog")
+	else:
+		_load_initial_game_scene()
 
 
 func _load_initial_game_scene():

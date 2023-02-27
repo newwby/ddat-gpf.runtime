@@ -31,6 +31,10 @@ const SCRIPT_NAME := "GlobalProgression"
 # verbose_logging exists in a parent class
 #const VERBOSE_LOGGING := true
 
+# dev can flip this if they don't want to use the save/load system
+# if this is unset the game meta handler will never call the file load dialog
+const ENABLE_GAME_PROGRESS_FILES := true
+
 # if set, and the GameProgressFile has the property 'total_playtime', the
 # globalProgression singleton will auto-instantiate a timer node and use it
 # to update the second count value of the total playtime property.
