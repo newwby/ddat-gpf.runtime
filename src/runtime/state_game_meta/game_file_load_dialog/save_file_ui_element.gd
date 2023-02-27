@@ -1,6 +1,6 @@
 extends MarginContainer
 
-# class_name SaveFileElement
+class_name SaveFileElement
 
 ##############################################################################
 #
@@ -17,6 +17,7 @@ extends MarginContainer
 ##############################################################################
 
 signal save_file_chosen()
+signal delete_button_pressed(ref_self)
 
 const SAVE_BUTTON_NODE_LABEL := "SAVE FILE "
 
@@ -181,4 +182,11 @@ func _on_load_save_button_pressed():
 	else:
 		GlobalDebug.log_error(SCRIPT_NAME, "_on_load_save_button_pressed",
 				"null progress file attached to clicked save file ui element")
+
+
+# method to delete a game save
+# is actually handled by gameMeta.FileLoadDialog, the expected parent
+func _on_delete_save_button_pressed():
+	# pass a reference to self back
+	emit_signal("delete_button_pressed", self)
 

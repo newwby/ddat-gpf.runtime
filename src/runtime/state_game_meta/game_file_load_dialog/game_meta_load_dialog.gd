@@ -18,6 +18,9 @@ const VERBOSE_LOGGING := true
 
 var listed_save_file_elements := 0
 
+# when a file is flagged for deletion the save file element is stored briefly
+var file_delete_request: SaveFileElement
+
 # node references
 #
 onready var popup_animator: AnimationPlayer = $Panel/PopupAnimator
@@ -125,9 +128,34 @@ func _on_game_file_dialog_start_new_save_file():
 				"new save file was not created correctly")
 
 
+# play animation to close the fileLoadDialog then call the gameMeta parent
+# and tell it to start the game proper
 func _on_save_file_chosen():
 	popup_animator.play("panel_fly_out")
 	# should return arg "panel_fly_out"
 	yield(popup_animator, "animation_finished")
 	emit_signal("begin_game_load")
 
+
+func _on_save_file_delete_request(arg_save_file_element_ref: SaveFileElement):
+	pass
+	arg_save_file_element_ref.my_progress_file.file_path
+	
+func _on_save_file_deleted():
+	# block all user input whilst the file deletion process starts
+	GlobalInput.is_input_captured.set_condition(SCRIPT_NAME, true)
+	
+#	arg_save_file_element_ref.my
+	#//TODO migrate this block to ddat-gpf.core.globalData
+#	var get_file_path = my_progress_file.file_path
+	
+	GlobalInput.is_input_captured.clear_condition(SCRIPT_NAME)
+
+
+
+func _on_delete_file_popup_confirm_pressed():
+	pass # Replace with function body.
+
+
+func _on_delete_file_popup_cancel_pressed():
+	pass # Replace with function body.
