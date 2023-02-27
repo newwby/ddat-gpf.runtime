@@ -34,6 +34,9 @@ export var timestamp_created: Dictionary setget _set_timestamp_created
 # when file was last opened or saved
 export var timestamp_modified: Dictionary setget _set_timestamp_modified
 
+# path where the progress file is saved on disk
+export var file_path: String
+
 # the key/value pairs of this dict are shown on the save file element when
 # loading/saving the game. Both the key and value are displayed on the file
 # info, so use readable strings when adding new key/value pairs.

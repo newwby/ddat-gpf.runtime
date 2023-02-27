@@ -111,11 +111,14 @@ func create_game_file():
 			save_file_name = "save"+str(save_id)+".tres"
 		#//TODO add maximum iteration exit condition
 	
+	# store the file path
+	new_save_file.file_path = base_save_path+save_file_name
+	
 	# the path should not exist to exit the above loop
 	if does_save_id_exist == false:
 		if GlobalData.save_resource(\
-				base_save_path,	save_file_name,	new_save_file) == OK:
-			# if save operation successful
+				base_save_path, save_file_name, new_save_file) == OK:
+			# if save operation successful, update record of saves
 			all_game_files.append(new_save_file)
 			emit_signal("new_game_file_recorded")
 #			print("save recorded at {p}".format({"p": save_file_name}))
