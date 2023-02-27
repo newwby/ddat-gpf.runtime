@@ -24,7 +24,7 @@ onready var popup_animator: AnimationPlayer = $Panel/PopupAnimator
 #
 onready var save_file_container_node: VBoxContainer =\
 		$Panel/Margin/ScrollContainer/SaveFileContainer
-onready var save_file_element_scene_default: HBoxContainer =\
+onready var save_file_element_scene_default: MarginContainer =\
 		$Panel/Margin/ScrollContainer/SaveFileContainer/SaveFileElement
 onready var new_save_file_button_node =\
 		$Panel/Margin/ScrollContainer/SaveFileContainer/NewSaveFile

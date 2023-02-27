@@ -10,7 +10,7 @@
 [ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_normal.tres" type="StyleBox" id=8]
 [ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_pressed.tres" type="StyleBox" id=9]
 [ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_focus.tres" type="StyleBox" id=10]
-[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_save_file_disabled.tres" type="StyleBox" id=11]
+[ext_resource path="res://src/runtime/state_game_meta/game_file_load_dialog/style_preset_button_file_disabled.tres" type="StyleBox" id=11]
 
 [sub_resource type="Theme" id=1]
 
@@ -39,7 +39,7 @@ margin_top = 15.0
 margin_right = 985.0
 margin_bottom = 985.0
 mouse_filter = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
 size_flags_vertical = 3
 custom_constants/margin_right = 25
 custom_constants/margin_top = 25
@@ -52,6 +52,7 @@ margin_top = 25.0
 margin_right = 945.0
 margin_bottom = 945.0
 mouse_filter = 2
+size_flags_horizontal = 7
 follow_focus = true
 
 [node name="SaveFileContainer" type="VBoxContainer" parent="Panel/Margin/ScrollContainer"]
@@ -60,7 +61,7 @@ margin_bottom = 920.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 25
+custom_constants/separation = 5
 
 [node name="NewSaveFile" type="Button" parent="Panel/Margin/ScrollContainer/SaveFileContainer"]
 margin_left = 210.0
@@ -78,15 +79,16 @@ custom_styles/normal = ExtResource( 8 )
 text = "Create New Save File"
 
 [node name="HSeparator" type="HSeparator" parent="Panel/Margin/ScrollContainer/SaveFileContainer"]
-margin_top = 150.0
+margin_top = 130.0
 margin_right = 920.0
-margin_bottom = 225.0
+margin_bottom = 180.0
 mouse_filter = 2
-custom_constants/separation = 75
+custom_constants/separation = 50
 custom_styles/separator = ExtResource( 5 )
 
 [node name="SaveFileElement" parent="Panel/Margin/ScrollContainer/SaveFileContainer" instance=ExtResource( 2 )]
-margin_top = 250.0
-margin_bottom = 375.0
+margin_top = 185.0
+margin_right = 920.0
+margin_bottom = 334.0
 
 [connection signal="pressed" from="Panel/Margin/ScrollContainer/SaveFileContainer/NewSaveFile" to="." method="_on_game_file_dialog_start_new_save_file"]

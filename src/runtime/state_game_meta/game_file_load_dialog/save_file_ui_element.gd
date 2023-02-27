@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends MarginContainer
 
 # class_name SaveFileElement
 
@@ -42,9 +42,9 @@ onready var save_button_node = get_node_or_null("LoadSaveButton")
 
 # node references for file info root and default (to duplicate from) node
 onready var file_info_root_node: VBoxContainer =\
-		$FileInfoContainer
+		$VBox/HBox/FileInfoContainer
 onready var file_info_default_node: HBoxContainer =\
-		$FileInfoContainer/FileInfo
+		$VBox/HBox/FileInfoContainer/FileInfo
 #		get_node_or_null("FileInfoContainer/FileInfo")
 
 ##############################################################################
