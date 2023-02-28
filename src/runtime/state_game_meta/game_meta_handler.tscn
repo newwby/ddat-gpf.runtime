@@ -28,5 +28,5 @@ margin_top = 533.0
 margin_right = 960.0
 margin_bottom = 547.0
 
-[connection signal="open_game_file_dialog" from="." to="InterfaceCanvas/GameFileLoadDialog" method="_on_game_meta_open_game_file_dialog"]
+[connection signal="open_game_file_dialog" from="." to="InterfaceCanvas/GameFileLoadDialog" method="open_game_file_dialog"]
 [connection signal="begin_game_load" from="InterfaceCanvas/GameFileLoadDialog" to="." method="_load_initial_game_scene"]

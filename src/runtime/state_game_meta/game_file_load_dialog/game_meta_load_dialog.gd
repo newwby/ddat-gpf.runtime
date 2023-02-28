@@ -52,7 +52,29 @@ onready var file_delete_popup_cancel_button_node =\
 
 ##############################################################################
 
-# private methods)
+# public methods
+
+
+func open_game_file_dialog():
+	popup_animator.play_backwards("panel_fly_out")
+	# should return arg "panel_fly_out"
+	yield(popup_animator, "animation_finished")
+	# if there aren't any game files, do nowt
+	new_save_file_button_node.grab_focus()
+	if GlobalProgression.all_game_files.empty():
+		return
+	
+	# otherwise get the files and add new save file elements
+	for save_file in GlobalProgression.all_game_files:
+		if save_file is GameProgressFile:
+			_create_new_save_file_element(save_file)
+	
+#	new_save_file_button_node.grab_click_focus()
+
+
+##############################################################################
+
+# private methods
 
 
 #//DERPECATED as functionality is replicated in globalProgression
@@ -113,23 +135,6 @@ func _create_new_save_file_element(arg_save_file: GameProgressFile):
 ##############################################################################
 
 # signal receipt methods
-
-
-func _on_game_meta_open_game_file_dialog():
-	popup_animator.play_backwards("panel_fly_out")
-	# should return arg "panel_fly_out"
-	yield(popup_animator, "animation_finished")
-	# if there aren't any game files, do nowt
-	new_save_file_button_node.grab_focus()
-	if GlobalProgression.all_game_files.empty():
-		return
-	
-	# otherwise get the files and add new save file elements
-	for save_file in GlobalProgression.all_game_files:
-		if save_file is GameProgressFile:
-			_create_new_save_file_element(save_file)
-	
-#	new_save_file_button_node.grab_click_focus()
 
 
 # method to create new save files
