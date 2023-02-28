@@ -2,7 +2,7 @@
 
 [resource]
 resource_name = "first_open"
-length = 2.0
+length = 1.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Main/Left/ButtonMargin/ButtonContainer/StartGame:self_modulate")
 tracks/0/interp = 1
