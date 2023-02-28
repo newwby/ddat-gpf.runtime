@@ -39,7 +39,7 @@ var is_my_save_label_set := false
 var labels_to_build := []
 
 # node references
-onready var save_button_node = get_node_or_null("LoadSaveButton")
+#onready var save_button_node = get_node_or_null("LoadSaveButton")
 
 # node references for file info root and default (to duplicate from) node
 onready var file_info_root_node: VBoxContainer =\
@@ -110,8 +110,9 @@ func _process(_delta):
 					new_file_info_element.get_value_label()
 			)
 	if is_my_save_label_set == false\
-	and save_button_node != null:
-		save_button_node.text = SAVE_BUTTON_NODE_LABEL+str(my_save_label_id)
+	and load_save_button_node != null:
+		load_save_button_node.text = SAVE_BUTTON_NODE_LABEL+str(my_save_label_id)
+		is_my_save_label_set = true
 
 
 
