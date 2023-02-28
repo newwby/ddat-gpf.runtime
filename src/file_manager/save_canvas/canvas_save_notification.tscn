@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/file_manager/save_canvas/texture_save_in_progress.png" type="Texture" id=1]
 [ext_resource path="res://src/file_manager/save_canvas/anim_modulate_pulse.tres" type="Animation" id=2]
+[ext_resource path="res://src/file_manager/save_canvas/canvas_save_notification.gd" type="Script" id=3]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="SaveNotificationCanvas" type="CanvasLayer"]
+script = ExtResource( 3 )
 
 [node name="ScreenMargin" type="MarginContainer" parent="."]
 margin_right = 1920.0
