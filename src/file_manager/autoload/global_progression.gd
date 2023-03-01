@@ -166,6 +166,9 @@ func create_game_file():
 func save_active_game_file():
 	if loaded_save_file != null:
 		show_save_in_progress_icon(true)
+		# update the file modified timestamp
+		loaded_save_file.timestamp_modified =\
+				Time.get_datetime_dict_from_system()
 		var active_game_file_directory = loaded_save_file.directory_path
 		var active_game_file_name = loaded_save_file.file_name
 		# write file to its own address
