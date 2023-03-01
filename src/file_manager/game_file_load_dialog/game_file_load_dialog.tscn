@@ -18,7 +18,7 @@
 [ext_resource path="res://src/file_manager/game_file_load_dialog/style_preset_button_file_disabled.tres" type="StyleBox" id=16]
 [ext_resource path="res://src/file_manager/game_file_load_dialog/style_preset_button_save_file_hover.tres" type="StyleBox" id=17]
 [ext_resource path="res://src/file_manager/game_file_load_dialog/style_preset_button_delete_popup_hover.tres" type="StyleBox" id=18]
-[ext_resource path="res://src/file_manager/game_file_load_dialog/game_meta_load_dialog.gd" type="Script" id=19]
+[ext_resource path="res://src/file_manager/game_file_load_dialog/game_file_load_dialog.gd" type="Script" id=19]
 
 [sub_resource type="Theme" id=1]
 
