@@ -48,6 +48,10 @@ const OPTION_SHOW_SAVE_ICON_CANVAS := true
 # to update the second count value of the total playtime property.
 const OPTION_TRACK_TOTAL_PLAY_TIME := true
 
+# The time (in minutes) between attempting a save regardless of what the game
+# is doing. Can disable by setting to a nil or negative value.
+const OPTION_AUTOSAVE_INTERVAL := 15.0
+
 # the total number of save files that can be recorded in the user data folder
 # acts as a break in iterator for create_game_file method
 const OPTION_MAXIMUM_SAVE_FILES := 100
@@ -61,6 +65,8 @@ var save_in_progress_canvas_node: CanvasLayer
 
 # reference to the play time tracker timer node
 var total_play_time_tracker_node: Timer
+# reference to the autosave timer node
+var autosave_timer_node: Timer
 
 #
 #08. exported variables
@@ -98,7 +104,9 @@ func _ready():
 	if OPTION_SHOW_SAVE_ICON_CANVAS:
 		_initiate_save_icon_canvas()
 	if OPTION_TRACK_TOTAL_PLAY_TIME:
-		_initiate_playtime_tracker()
+		_initiate_playtime_tracking_timer()
+	if OPTION_AUTOSAVE_INTERVAL >= 0:
+		_initiate_autosave_timer()
 
 
 ##############################################################################
@@ -136,7 +144,8 @@ func create_game_file():
 			save_file_name = "save"+str(save_id)+".tres"
 	
 	# store the file path
-	new_save_file.file_path = base_save_path+save_file_name
+	new_save_file.directory_path = base_save_path
+	new_save_file.file_name = save_file_name
 	
 	# this statement==true (path will not exist) if the above loop exits
 	# successfully; this catches exceptions such as maximum save id exceeded
@@ -151,6 +160,30 @@ func create_game_file():
 	
 	# catchall exit condition, assumes failure
 	return null
+
+
+#//IN PROGRESS DO NOT USE
+func save_active_game_file():
+	if loaded_save_file != null:
+		show_save_in_progress_icon(true)
+		var active_game_file_directory = loaded_save_file.directory_path
+		var active_game_file_name = loaded_save_file.file_name
+		# write file to its own address
+		# force write file/directory = true & true
+		# increment backup = true
+		if GlobalData.save_resource(\
+				active_game_file_directory,
+				active_game_file_name,
+				loaded_save_file,
+				true,
+				true,
+				true) == OK:
+			GlobalDebug.log_success(verbose_logging, SCRIPT_NAME,
+					"save_active_game_file",
+					"succesfully wrote file at {p}".format({
+						"p": active_game_file_directory+active_game_file_name
+					}))
+		show_save_in_progress_icon(false)
 
 
 func show_save_in_progress_icon(arg_enable_icon: bool = true):
@@ -168,7 +201,7 @@ func show_save_in_progress_icon(arg_enable_icon: bool = true):
 func _initiate_save_icon_canvas():
 	# called with incorrect dev option flag set
 	if not OPTION_SHOW_SAVE_ICON_CANVAS:
-		GlobalDebug.log_error(SCRIPT_NAME, "create_game_file",
+		GlobalDebug.log_error(SCRIPT_NAME, "_initiate_save_icon_canvas",
 				"_initiate_saving_canvas called whilst"+
 				" option_show_save_in_progress_canvas isn't set")
 		return
@@ -180,10 +213,10 @@ func _initiate_save_icon_canvas():
 
 
 # creates the playtime tracker if flag is enabled
-func _initiate_playtime_tracker():
+func _initiate_playtime_tracking_timer():
 	# called with incorrect dev option flag set
 	if not OPTION_TRACK_TOTAL_PLAY_TIME:
-		GlobalDebug.log_error(SCRIPT_NAME, "create_game_file",
+		GlobalDebug.log_error(SCRIPT_NAME, "_initiate_playtime_tracking_timer",
 				"_initiate_playtime_tracker called whilst"+
 				" option_track_total_play_time isn't set")
 		return
@@ -196,6 +229,26 @@ func _initiate_playtime_tracker():
 			"timeout", self, "_on_timeout_gain_playtime") != OK:
 		GlobalDebug.log_error(SCRIPT_NAME, "_initiate_playtime_tracker",
 				"total playtime tracker not setup correctly")
+
+
+func _initiate_autosave_timer():
+	# called with incorrect dev option flag set
+	if not OPTION_AUTOSAVE_INTERVAL >= 0:
+		GlobalDebug.log_error(SCRIPT_NAME, "_initiate_autosave_timer",
+				"_initiate_autosave_timer called whilst"+
+				" option_autosave_interval is nil or negative")
+		return
+	# set up the autosave timer
+	autosave_timer_node = Timer.new()
+	self.call_deferred("add_child", autosave_timer_node)
+	autosave_timer_node.autostart = true
+	autosave_timer_node.one_shot = false
+	# convert minutes to seconds
+	autosave_timer_node.wait_time = float(OPTION_AUTOSAVE_INTERVAL*60)
+	if autosave_timer_node.connect(\
+			"timeout", self, "save_active_game_file") != OK:
+		GlobalDebug.log_error(SCRIPT_NAME, "_initiate_autosave_timer",
+				"autosave timer not setup correctly")
 
 
 # shadowing a parent class method
