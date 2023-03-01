@@ -171,25 +171,29 @@ func _delete_save_file():
 	GlobalInput.is_input_captured.set_condition(SCRIPT_NAME, true)
 	
 	#//TODO migrate this block to ddat-gpf.core.globalData
-	var deletion_path := ""
+	var full_deletion_path := ""
 	if file_delete_request is SaveFileElement:
-		deletion_path = file_delete_request.my_progress_file.file_path
+		var deletion_directory_path: String =\
+				file_delete_request.my_progress_file.directory_path
+		var deletion_file_name: String =\
+				file_delete_request.my_progress_file.file_name
+		full_deletion_path = deletion_directory_path+deletion_file_name
 		# err catch
-		if not GlobalData.validate_file(deletion_path):
+		if not GlobalData.validate_file(full_deletion_path):
 			GlobalDebug.log_error(SCRIPT_NAME, "_delete_save_file",
 					"file at path {p} not found for deletion".format({
-						"p": deletion_path
+						"p": full_deletion_path
 					}))
 		# valid
 		else:
 			# move to recycle don't outright delete
 			#//TODO add const for move_to_trash? (w/directory.remove on false?)
 			var global_deletion_path =\
-					ProjectSettings.globalize_path(deletion_path)
+					ProjectSettings.globalize_path(full_deletion_path)
 			if OS.move_to_trash(global_deletion_path) != OK:
 				GlobalDebug.log_error(SCRIPT_NAME, "_delete_save_file",
 						"file at path {p} was not succesfully deleted".format({
-							"p": deletion_path
+							"p": full_deletion_path
 						}))
 			if file_delete_request in save_file_container_node.get_children():
 #				save_file_container_node.call_deferred("remove_child",\
