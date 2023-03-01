@@ -68,7 +68,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="# [ddat-gpf.3] Runtime Scaffold"
+config/name="#[ddat-gpf.runtime] Runtime Scaffold"
 config/description="workspace to focus on developing a series of runtime scenes for quick prototyping"
 run/main_scene="res://src/runtime/main.tscn"
 config/use_custom_user_dir=true
