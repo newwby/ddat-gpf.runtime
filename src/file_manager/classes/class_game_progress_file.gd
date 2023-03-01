@@ -100,16 +100,21 @@ func _convert_seconds_to_time_string(arg_seconds: int):
 
 
 func _convert_datetime_dict_to_save_info(datetime_dict: Dictionary) -> String:
+	# full string to write
 	var file_datetime_info = ""
-	var file_datetime_day = ""
-	var file_datetime_month = ""
-	var file_datetime_year = ""
+	# pieces to build full string from
+	var file_date_day = ""
+	var file_date_month = ""
+	var file_date_year = ""
+	var file_time_hour := ""
+	var file_time_minute := ""
+	var file_time_second := ""
 	
 	if "day" in datetime_dict.keys():
-		file_datetime_day = str(datetime_dict["day"])
+		file_date_day = str(datetime_dict["day"])
 		# get last digit to determine the suffix
 		var day_suffix = ""
-		var last_digit = str(file_datetime_day)[-1]
+		var last_digit = str(file_date_day)[-1]
 		if last_digit == "3":
 			day_suffix = "rd"
 		elif last_digit == "2":
@@ -118,46 +123,65 @@ func _convert_datetime_dict_to_save_info(datetime_dict: Dictionary) -> String:
 			day_suffix = "st"
 		else:
 			day_suffix = "th"
-		file_datetime_day += day_suffix
+		file_date_day += day_suffix
 	
 	if "month" in datetime_dict.keys():
-		file_datetime_month = datetime_dict["month"]
-		if typeof(file_datetime_month) == TYPE_INT:
-			if file_datetime_month in range(1, 12):
-				match file_datetime_month:
+		file_date_month = datetime_dict["month"]
+		if typeof(file_date_month) == TYPE_INT:
+			if file_date_month in range(1, 12):
+				match file_date_month:
 					1:
-						file_datetime_month = "January"
+						file_date_month = "January"
 					2:
-						file_datetime_month = "February"
+						file_date_month = "February"
 					3:
-						file_datetime_month = "March"
+						file_date_month = "March"
 					4:
-						file_datetime_month = "April"
+						file_date_month = "April"
 					5:
-						file_datetime_month = "May"
+						file_date_month = "May"
 					6:
-						file_datetime_month = "June"
+						file_date_month = "June"
 					7:
-						file_datetime_month = "July"
+						file_date_month = "July"
 					8:
-						file_datetime_month = "August"
+						file_date_month = "August"
 					9:
-						file_datetime_month = "September"
+						file_date_month = "September"
 					10:
-						file_datetime_month = "October"
+						file_date_month = "October"
 					11:
-						file_datetime_month = "November"
+						file_date_month = "November"
 					12:
-						file_datetime_month = "December"
+						file_date_month = "December"
 	
 	if "year" in datetime_dict.keys():
-		file_datetime_year = str(datetime_dict["year"])
+		file_date_year = str(datetime_dict["year"])
 	
-	# type convert to catch exceptions
+#	//TODO convert to 24 hour?
+	if "hour" in datetime_dict.keys():
+		file_time_hour = str(datetime_dict["hour"])
+		if file_time_hour.length() == 1:
+			file_time_hour = "0"+file_time_hour
+	
+	if "minute" in datetime_dict.keys():
+		file_time_minute = str(datetime_dict["minute"])
+		if file_time_minute.length() == 1:
+			file_time_minute = "0"+file_time_minute
+	
+	if "second" in datetime_dict.keys():
+		file_time_second = str(datetime_dict["second"])
+		if file_time_second.length() == 1:
+			file_time_second = "0"+file_time_second
+	
+	# type convert to catch exceptions (may now be redundant)
 	file_datetime_info =\
-			str(file_datetime_day)+" "+\
-			str(file_datetime_month)+" "+\
-			str(file_datetime_year)
+			str(file_date_day)+" "+\
+			str(file_date_month)+" "+\
+			str(file_date_year)+", "+\
+			str(file_time_hour)+":"+\
+			str(file_time_minute)+":"+\
+			str(file_time_second)
 	
 	return file_datetime_info
 
