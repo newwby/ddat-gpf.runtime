@@ -150,11 +150,16 @@ func _on_game_file_dialog_start_new_save_file():
 				"new save file was not created correctly")
 
 
-# play animation to close the fileLoadDialog then call the gameMeta parent
-# and tell it to start the game proper
+# closes the fileLoadDialog and emits signal dev can use to load game proper
 func _on_save_file_chosen():
-	popup_animator.play("panel_fly_out")
 	# should return arg "panel_fly_out"
+	popup_animator.play("panel_fly_out")
+	# looks weird if file has a playtime of 0 seconds and a different
+	# 'last played' datetimestamp, so add a second when loaded
+	if GlobalProgression.loaded_save_file.total_playtime == 0:
+		GlobalProgression.loaded_save_file.total_playtime += 1
+	# write file so it gains the modified datetimestamp
+	GlobalProgression.save_active_game_file()
 	yield(popup_animator, "animation_finished")
 	emit_signal("begin_game_load")
 

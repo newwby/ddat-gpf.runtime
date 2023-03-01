@@ -162,7 +162,7 @@ func create_game_file():
 	return null
 
 
-#//IN PROGRESS DO NOT USE
+# call this to save the player's game
 func save_active_game_file():
 	if loaded_save_file != null:
 		show_save_in_progress_icon(true)
