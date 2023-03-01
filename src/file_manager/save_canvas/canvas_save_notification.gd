@@ -11,8 +11,10 @@ const SCRIPT_NAME := "SaveNotificationCanvas"
 const VERBOSE_LOGGING := true
 
 # node references
-onready var saving_icon_node = $ScreenMargin/SaveInProgressIcon
-onready var pulse_animplr_node = $ScreenMargin/SaveInProgressIcon/PulseAnimator
+onready var saving_icon_node: TextureRect =\
+		$ScreenMargin/SaveInProgressIcon
+onready var pulse_animplr_node: AnimationPlayer =\
+		$ScreenMargin/SaveInProgressIcon/PulseAnimator
 
 ##############################################################################
 
@@ -31,8 +33,10 @@ onready var pulse_animplr_node = $ScreenMargin/SaveInProgressIcon/PulseAnimator
 
 
 func show_icon(is_shown: bool = true):
-	saving_icon_node.visible = is_shown
-	pulse_animplr_node.stop()
-	if is_shown:
-		pulse_animplr_node.play("modulate_pulse")
+	if saving_icon_node != null:
+		saving_icon_node.visible = is_shown
+	if pulse_animplr_node != null:
+		pulse_animplr_node.stop()
+		if is_shown:
+			pulse_animplr_node.play("modulate_pulse")
 
