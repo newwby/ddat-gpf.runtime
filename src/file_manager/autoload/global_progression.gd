@@ -31,14 +31,16 @@ const SCRIPT_NAME := "GlobalProgression"
 # verbose_logging exists in a parent class
 #const VERBOSE_LOGGING := true
 
+# optional arguments for developer to change behaviour of the game file manager
+
 # dev can flip this if they don't want to use the save/load system
-# if this is unset the game meta handler will never call the file load dialog
-const ENABLE_GAME_PROGRESS_FILES := true
+# if set false the game file manager will not function
+const OPTION_ENABLE_GAME_FILE_MANAGER := true
 
 # if set, and the GameProgressFile has the property 'total_playtime', the
 # globalProgression singleton will auto-instantiate a timer node and use it
 # to update the second count value of the total playtime property.
-const TRACK_TOTAL_PLAY_TIME := true
+const OPTION_TRACK_TOTAL_PLAY_TIME := true
 
 var total_play_time_tracker: Timer
 
@@ -145,7 +147,7 @@ func _initiate_playtime_tracker():
 	var class_to_check = GameProgressFile.new()
 	var property_to_check = "total_playtime"
 	if property_to_check in class_to_check\
-	and TRACK_TOTAL_PLAY_TIME:
+	and OPTION_TRACK_TOTAL_PLAY_TIME:
 		total_play_time_tracker = Timer.new()
 		self.call_deferred("add_child", total_play_time_tracker)
 		total_play_time_tracker.autostart = false
