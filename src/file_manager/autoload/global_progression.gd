@@ -31,7 +31,7 @@ const SCRIPT_NAME := "GlobalProgression"
 # verbose_logging exists in a parent class
 #const VERBOSE_LOGGING := true
 
-# optional arguments for developer to change behaviour of the game file manager
+# optional flags for developer to change behaviour of the game file manager
 
 # dev can flip this if they don't want to use the save/load system
 # if set false the game file manager will not function
@@ -41,6 +41,10 @@ const OPTION_ENABLE_GAME_FILE_MANAGER := true
 # globalProgression singleton will auto-instantiate a timer node and use it
 # to update the second count value of the total playtime property.
 const OPTION_TRACK_TOTAL_PLAY_TIME := true
+
+# the total number of save files that can be recorded in the user data folder
+# acts as a break in iterator for create_game_file method
+const OPTION_MAXIMUM_SAVE_FILES := 100
 
 var total_play_time_tracker: Timer
 
@@ -94,9 +98,15 @@ func _ready():
 # method that instantiates save files
 # returns the created file on success or null on failure
 func create_game_file():
-	# new save files record their time of creation
+	# called with incorrect dev option flag set
+	if not OPTION_ENABLE_GAME_FILE_MANAGER:
+		GlobalDebug.log_error(SCRIPT_NAME, "create_game_file",
+				"create game file called whilst game file manager disabled")
+		return
+	
 	var new_save_file = GameProgressFile.new()
 	
+	# get the save path
 	var save_id := 1
 	var does_save_id_exist := true
 	var base_save_path =\
@@ -104,19 +114,21 @@ func create_game_file():
 	var save_file_name = "save"+str(save_id)+".tres"
 	# save files are recorded as 'save' with an integer id, i.e. 'save1'
 	# until an unused save id is found, iterate through potential save ids
-	while does_save_id_exist == true:
+	# will only iterate up to maximum save file value
+	while does_save_id_exist == true\
+	and save_id <= OPTION_MAXIMUM_SAVE_FILES:
 		does_save_id_exist = GlobalData.validate_file(\
 				base_save_path+save_file_name)
 		# if already exists, increment the id and attempted path
 		if does_save_id_exist == true:
 			save_id += 1
 			save_file_name = "save"+str(save_id)+".tres"
-		#//TODO add maximum iteration exit condition
 	
 	# store the file path
 	new_save_file.file_path = base_save_path+save_file_name
 	
-	# the path should not exist to exit the above loop
+	# this statement==true (path will not exist) if the above loop exits
+	# successfully; this catches exceptions such as maximum save id exceeded
 	if does_save_id_exist == false:
 		if GlobalData.save_resource(\
 				base_save_path, save_file_name, new_save_file) == OK:
@@ -125,6 +137,7 @@ func create_game_file():
 			emit_signal("new_game_file_recorded")
 #			print("save recorded at {p}".format({"p": save_file_name}))
 			return new_save_file
+	
 	# catchall exit condition, assumes failure
 	return null
 
