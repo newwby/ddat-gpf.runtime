@@ -81,7 +81,7 @@ GlobalData="*res://src/autoload/global_data.gd"
 GlobalDebug="*res://src/autoload/global_debug.gd"
 GlobalDevTools="*res://src/autoload/global_devtools.tscn"
 GlobalInput="*res://src/autoload/global_input.gd"
-GlobalConfig="*res://src/autoload/global_config.gd"
+GlobalConfig="*res://src/config_manager/autoload/global_config.gd"
 GlobalProgression="*res://src/file_manager/autoload/global_progression.gd"
 
 [display]
