@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "CompoundActionExtension",
 "language": "GDScript",
-"path": "res://src/class/class_compound_action_extension.gd"
+"path": "res://src/input_manager/classes/class_compound_action_extension.gd"
 }, {
 "base": "Reference",
 "class": "Conditional",
 "language": "GDScript",
-"path": "res://src/class/class_conditional.gd"
+"path": "res://src/input_manager/classes/class_conditional.gd"
 }, {
 "base": "Resource",
 "class": "GameDataContainer",
@@ -80,7 +80,7 @@ config/icon="res://art/splash/ddat_icon.png"
 GlobalData="*res://src/autoload/global_data.gd"
 GlobalDebug="*res://src/autoload/global_debug.gd"
 GlobalDevTools="*res://src/autoload/global_devtools.tscn"
-GlobalInput="*res://src/autoload/global_input.gd"
+GlobalInput="*res://src/input_manager/autoload/global_input.gd"
 GlobalConfig="*res://src/config_manager/autoload/global_config.gd"
 GlobalProgression="*res://src/file_manager/autoload/global_progression.gd"
 
