@@ -27,12 +27,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "GameGlobal",
 "language": "GDScript",
-"path": "res://src/class/class_global.gd"
+"path": "res://src/classes/class_global.gd"
 }, {
 "base": "Control",
 "class": "GameMenuWindow",
 "language": "GDScript",
-"path": "res://src/class/class_game_menu.gd"
+"path": "res://src/classes/class_game_menu.gd"
 }, {
 "base": "Resource",
 "class": "GameProgressFile",
