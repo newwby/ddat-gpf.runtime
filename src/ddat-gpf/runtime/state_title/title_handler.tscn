@@ -1,0 +1,129 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/title_menus/animation_mgrs/title_anim_mgr_exit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/title_handler.gd" type="Script" id=2]
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/title_menus/animation_mgrs/title_anim_mgr_menu_transition.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/title_menus/title_main/title_main.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/title_menus/title_config/title_config.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/title_menus/title_about/title_about.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/title_menus/title_controls/title_controls.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/anim_title_canvas_fade_in.tres" type="Animation" id=8]
+[ext_resource path="res://src/ddat-gpf/runtime/state_title/title_menus/animation_mgrs/title_anim_mgr_intro.tscn" type="PackedScene" id=9]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MenuHolder:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="TitleStateHandler" type="Node"]
+script = ExtResource( 2 )
+_game_handler_id = 2
+
+[node name="TitleMenuCanvas" type="CanvasLayer" parent="."]
+
+[node name="Root" type="Control" parent="TitleMenuCanvas"]
+margin_left = 480.0
+margin_right = 2400.0
+margin_bottom = 1080.0
+mouse_filter = 2
+
+[node name="MenuHolder" type="Control" parent="TitleMenuCanvas/Root"]
+visible = false
+margin_left = -480.0
+margin_right = 1440.0
+margin_bottom = 1080.0
+mouse_filter = 2
+
+[node name="MenuTitleMain" parent="TitleMenuCanvas/Root/MenuHolder" instance=ExtResource( 4 )]
+margin_left = 0.0
+margin_right = 1920.0
+
+[node name="Main" parent="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain" index="0"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartGame" parent="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer" index="0"]
+self_modulate = Color( 1, 1, 1, 1 )
+
+[node name="ToConfigMenu" parent="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer" index="1"]
+self_modulate = Color( 1, 1, 1, 1 )
+
+[node name="ToControlsMenu" parent="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer" index="2"]
+self_modulate = Color( 1, 1, 1, 1 )
+
+[node name="ToAboutMenu" parent="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer" index="3"]
+self_modulate = Color( 1, 1, 1, 1 )
+
+[node name="ExitGame" parent="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer" index="4"]
+self_modulate = Color( 1, 1, 1, 1 )
+
+[node name="MenuConfigurationOptions" parent="TitleMenuCanvas/Root/MenuHolder" instance=ExtResource( 5 )]
+
+[node name="MenuControlOptions" parent="TitleMenuCanvas/Root/MenuHolder" instance=ExtResource( 7 )]
+
+[node name="MenuAboutInfo" parent="TitleMenuCanvas/Root/MenuHolder" instance=ExtResource( 6 )]
+
+[node name="CanvasFadeAnim" type="AnimationPlayer" parent="TitleMenuCanvas/Root"]
+anims/RESET = SubResource( 1 )
+anims/fade_in = ExtResource( 8 )
+
+[node name="IntroAnimMgr" parent="." instance=ExtResource( 9 )]
+
+[node name="MenuTransitionAnimMgr" parent="." instance=ExtResource( 3 )]
+
+[node name="ExitAnimMgr" parent="." instance=ExtResource( 1 )]
+margin_left = 480.0
+margin_right = 2400.0
+
+[connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/StartGame" to="." method="exit_title_state_handler" binds= [ true ]]
+[connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/ToConfigMenu" to="." method="transition_to_menu" binds= [ 2 ]]
+[connection signal="main_window_last_focused_button" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/ToControlsMenu" to="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain" method="update_last_focused_button"]
+[connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/ToControlsMenu" to="." method="transition_to_menu" binds= [ 3 ]]
+[connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/ToAboutMenu" to="." method="transition_to_menu" binds= [ 4 ]]
+[connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain/Main/Left/ButtonMargin/ButtonContainer/ExitGame" to="." method="exit_title_state_handler" binds= [ false ]]
+[connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuConfigurationOptions/MarginContainer/TitleMenuButton" to="." method="transition_to_menu" binds= [ 1 ]]
+[connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuControlOptions/MarginContainer/TitleMenuButton" to="." method="transition_to_menu" binds= [ 1 ]]
+[connection signal="pressed" from="TitleMenuCanvas/Root/MenuHolder/MenuAboutInfo/MarginContainer/TitleMenuButton" to="." method="transition_to_menu" binds= [ 1 ]]
+[connection signal="animation_finished" from="IntroAnimMgr" to="." method="_on_intro_anim_mgr_animation_finished"]
+[connection signal="animation_finished" from="MenuTransitionAnimMgr" to="." method="_on_menu_transition_anim_mgr_animation_finished"]
+[connection signal="animation_finished" from="ExitAnimMgr" to="." method="_on_exit_anim_mgr_animation_finished"]
+
+[editable path="TitleMenuCanvas/Root/MenuHolder/MenuTitleMain"]
+[editable path="TitleMenuCanvas/Root/MenuHolder/MenuConfigurationOptions"]
+[editable path="TitleMenuCanvas/Root/MenuHolder/MenuControlOptions"]
+[editable path="TitleMenuCanvas/Root/MenuHolder/MenuAboutInfo"]

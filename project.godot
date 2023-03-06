@@ -12,47 +12,47 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "CompoundActionExtension",
 "language": "GDScript",
-"path": "res://src/input_manager/classes/class_compound_action_extension.gd"
+"path": "res://src/ddat-gpf/input_manager/classes/class_compound_action_extension.gd"
 }, {
 "base": "Reference",
 "class": "Conditional",
 "language": "GDScript",
-"path": "res://src/input_manager/classes/class_conditional.gd"
+"path": "res://src/ddat-gpf/input_manager/classes/class_conditional.gd"
 }, {
 "base": "Resource",
 "class": "GameDataContainer",
 "language": "GDScript",
-"path": "res://src/runtime/classes/class_game_data_container.gd"
+"path": "res://src/ddat-gpf/runtime/classes/class_game_data_container.gd"
 }, {
 "base": "Node",
 "class": "GameGlobal",
 "language": "GDScript",
-"path": "res://src/classes/class_global.gd"
+"path": "res://src/ddat-gpf/classes/class_global.gd"
 }, {
 "base": "Control",
 "class": "GameMenuWindow",
 "language": "GDScript",
-"path": "res://src/classes/class_game_menu.gd"
+"path": "res://src/ddat-gpf/classes/class_game_menu.gd"
 }, {
 "base": "Resource",
 "class": "GameProgressFile",
 "language": "GDScript",
-"path": "res://src/file_manager/classes/class_game_progress_file.gd"
+"path": "res://src/ddat-gpf/file_manager/classes/class_game_progress_file.gd"
 }, {
 "base": "Node",
 "class": "GameStateHandler",
 "language": "GDScript",
-"path": "res://src/runtime/classes/class_game_state_handler.gd"
+"path": "res://src/ddat-gpf/runtime/classes/class_game_state_handler.gd"
 }, {
 "base": "MarginContainer",
 "class": "SaveFileElement",
 "language": "GDScript",
-"path": "res://src/file_manager/game_file_load_dialog/save_file_ui_element.gd"
+"path": "res://src/ddat-gpf/file_manager/game_file_load_dialog/save_file_ui_element.gd"
 }, {
 "base": "GameMenuWindow",
 "class": "TitleMenuWindow",
 "language": "GDScript",
-"path": "res://src/runtime/state_title/title_menus/class_title_menu.gd"
+"path": "res://src/ddat-gpf/runtime/state_title/title_menus/class_title_menu.gd"
 } ]
 _global_script_class_icons={
 "CompoundActionExtension": "",
@@ -70,19 +70,19 @@ _global_script_class_icons={
 
 config/name="#[ddat-gpf.runtime] Runtime Scaffold"
 config/description="workspace to focus on developing a series of runtime scenes for quick prototyping"
-run/main_scene="res://src/runtime/main.tscn"
+run/main_scene="res://src/ddat-gpf/runtime/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="ddat_framework"
 config/icon="res://art/splash/ddat_icon.png"
 
 [autoload]
 
-GlobalData="*res://src/autoload/global_data.gd"
-GlobalDebug="*res://src/autoload/global_debug.gd"
-GlobalDevTools="*res://src/autoload/global_devtools.tscn"
-GlobalInput="*res://src/input_manager/autoload/global_input.gd"
-GlobalConfig="*res://src/config_manager/autoload/global_config.gd"
-GlobalProgression="*res://src/file_manager/autoload/global_progression.gd"
+GlobalData="*res://src/ddat-gpf/autoload/global_data.gd"
+GlobalDebug="*res://src/ddat-gpf/autoload/global_debug.gd"
+GlobalDevTools="*res://src/ddat-gpf/autoload/global_devtools.tscn"
+GlobalInput="*res://src/ddat-gpf/input_manager/autoload/global_input.gd"
+GlobalConfig="*res://src/ddat-gpf/config_manager/autoload/global_config.gd"
+GlobalProgression="*res://src/ddat-gpf/file_manager/autoload/global_progression.gd"
 
 [display]
 

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/ddat-gpf/runtime/state_game_meta/game_meta_handler.gd" type="Script" id=1]
+[ext_resource path="res://src/ddat-gpf/file_manager/game_file_load_dialog/game_file_load_dialog.tscn" type="PackedScene" id=2]
+
+[node name="GameMetaHandler" type="Node"]
+script = ExtResource( 1 )
+_game_handler_id = 3
+
+[node name="InterfaceCanvas" type="CanvasLayer" parent="."]
+
+[node name="GameCampaignUI" type="MarginContainer" parent="InterfaceCanvas"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+
+[node name="GameFileLoadDialog" parent="InterfaceCanvas" instance=ExtResource( 2 )]
+
+[node name="LoadingPlaceholder" type="CenterContainer" parent="InterfaceCanvas"]
+visible = false
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+
+[node name="LoadingPlaceholderText" type="Label" parent="InterfaceCanvas/LoadingPlaceholder"]
+margin_left = 960.0
+margin_top = 533.0
+margin_right = 960.0
+margin_bottom = 547.0
+
+[connection signal="open_game_file_dialog" from="." to="InterfaceCanvas/GameFileLoadDialog" method="open_game_file_dialog"]
+[connection signal="begin_game_load" from="InterfaceCanvas/GameFileLoadDialog" to="." method="_load_initial_game_scene"]
